@@ -1,0 +1,83 @@
+.formulario-container {
+    max-width: 450px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  form {
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 40px;
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  form div {
+    margin-bottom: 20px; /* Espaciado entre los campos */
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333333; /* Color gris oscuro para buena legibilidad */
+  }
+  
+  input,
+  select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    border: 1px solid #dcdcdc; /* Bordes grises claros */
+    background-color: #f9f9f9; /* Fondo gris muy claro */
+    color: #333333; /* Texto gris oscuro */
+    transition: all 0.3s ease; /* Animación suave */
+  }
+  
+  input,
+  select:focus {
+    outline: none;
+    border-color: #007bff; /* Color azul para destacar al enfocar */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); /* Sombra azul al enfocar */
+  }
+  
+  button {
+    padding: 12px 20px;
+    background-color: #007bff; /* Azul para el botón */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transición suave */
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+    transform: translateY(-3px); /* Efecto de elevación al pasar el ratón */
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+  }
+  
+  button:not(:last-child) {
+    margin-right: 15px;
+  }
+  
+  .texth2 {
+    text-align: center;
+    color: #333333; /* Color gris oscuro para el título */
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    font-weight: bold;
+  }
+  
