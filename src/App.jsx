@@ -3,18 +3,14 @@ import Login from "./components/Login";
 import FormularioIA from "./components/FormularioIA";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const handleLoginSuccess = () => {
-    setIsAuthenticated(true); // Cuando el login es exitoso, el usuario se autentica
-  };
+  const [isLogin, setIsLogin] = useState(true);
 
   return (
     <div className="App">
-      {isAuthenticated ? (
-        <FormularioIA />
+      {isLogin ? (
+        <Login onSwitch={() => setIsLogin(false)} />
       ) : (
-        <Login onLoginSuccess={handleLoginSuccess} />
+        <FormularioIA onSwitch={() => setIsLogin(true)} />
       )}
     </div>
   );

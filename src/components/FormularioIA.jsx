@@ -1,28 +1,26 @@
 import React, { useState } from "react";
-import "../css/FormularioIA.css";
 import axios from "axios";
+import "../css/FormularioIA.css";
 
-function FormularioIA() {
-  const [step, setStep] = useState(1); 
+function FormularioIA({ onSwitch }) {
+  const [step, setStep] = useState(1); // Controla el paso actual del formulario
   const [formData, setFormData] = useState({
-    nombre: "",
-    edad: "",
-    genero: "",
-    objetivo: "",
-    peso: "",
-    contraseña: "",
+    name: "",
+    password: "",
+    age: "",
+    gender: "",
+    weight: "",
+    objective: "",
   });
 
-  // Función para manejar cambios en los inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value,
     }));
   };
 
-  // Funciones para cambiar entre pasos
   const handleNextStep = () => {
     setStep((prevStep) => prevStep + 1);
   };
@@ -31,67 +29,43 @@ function FormularioIA() {
     setStep((prevStep) => prevStep - 1);
   };
 
-  // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     const apiUrl = "https://3nbxtlj5-8083.brs.devtunnels.ms/api/auth/register";
 
-    // Preparar el objeto JSON para enviar
-    const payload = {
-      name: formData.nombre,
-      password: formData.contraseña,
-      weight: parseInt(formData.peso),
-      age: parseInt(formData.edad),
-      gender: formData.genero,
-      objective: formData.objetivo,
-    };
-
     try {
-      // Hacer la solicitud POST usando axios
-      const response = await axios.post(apiUrl, payload, {
+      const response = await axios.post(apiUrl, formData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      // Manejo de una respuesta exitosa
       console.log("Registro exitoso:", response.data);
       alert("Registro exitoso.");
     } catch (error) {
-      // Manejo de error con axios
       if (error.response) {
-        // El servidor respondió con un código de estado fuera del rango 2xx
         console.error("Error al registrar:", error.response);
-        alert(`Error al registrar: ${error.response.status} - ${error.response.statusText}\nDetalles: ${error.response.data}`);
+        alert(`Error al registrar: ${error.response.status} - ${error.response.statusText}`);
       } else if (error.request) {
-        // La solicitud se hizo pero no se recibió respuesta
         console.error("Error en la solicitud:", error.request);
         alert("Error de red, por favor intente más tarde.");
       } else {
-        // Algo pasó al preparar la solicitud
         console.error("Error:", error.message);
         alert(`Error: ${error.message}`);
       }
     }
   };
 
-  // Títulos dinámicos según el paso actual
   const getTitle = () => {
     switch (step) {
       case 1:
-        return "Nombre";
+        return "Datos Personales";
       case 2:
-        return "Edad";
+        return "Información Física";
       case 3:
-        return "Género";
-      case 4:
-        return "Objetivo";
-      case 5:
-        return "Peso";
-      case 6:
-        return "Contraseña";
+        return "Datos de Usuario";
       default:
-        return "Formulario de Implementación IA";
+        return "Registro de Usuario";
     }
   };
 
@@ -103,11 +77,21 @@ function FormularioIA() {
         {step === 1 && (
           <>
             <div>
-              <label>Nombre:</label>
+              <label>Nombre de Usuario:</label>
               <input
                 type="text"
-                name="nombre"
-                value={formData.nombre}
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Edad:</label>
+              <input
+                type="number"
+                name="age"
+                value={formData.age}
                 onChange={handleChange}
                 required
               />
@@ -123,14 +107,28 @@ function FormularioIA() {
         {step === 2 && (
           <>
             <div>
-              <label>Edad:</label>
+              <label>Peso (kg):</label>
               <input
                 type="number"
-                name="edad"
-                value={formData.edad}
+                name="weight"
+                value={formData.weight}
                 onChange={handleChange}
                 required
               />
+            </div>
+            <div>
+              <label>Género:</label>
+              <select
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Seleccione...</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="otro">Otro</option>
+              </select>
             </div>
             <div className="button-container">
               <button type="button" onClick={handlePreviousStep}>
@@ -146,88 +144,21 @@ function FormularioIA() {
         {step === 3 && (
           <>
             <div>
-              <label>Género:</label>
-              <select
-                name="genero"
-                value={formData.genero}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Seleccione...</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Femenino">Femenino</option>
-                <option value="Otro">Otro</option>
-              </select>
-            </div>
-            <div className="button-container">
-              <button type="button" onClick={handlePreviousStep}>
-                Atrás
-              </button>
-              <button type="button" onClick={handleNextStep}>
-                Siguiente
-              </button>
-            </div>
-          </>
-        )}
-
-        {step === 4 && (
-          <>
-            <div>
               <label>Objetivo:</label>
-              <select
-                name="objetivo"
-                value={formData.objetivo}
-                onChange={handleChange}
-                required
-              >
-                <option value="">Seleccione...</option>
-                <option value="bajar de peso">Bajar de peso</option>
-                <option value="ganar peso">Ganar peso</option>
-                <option value="mantener peso">Mantener peso</option>
-              </select>
-            </div>
-            <div className="button-container">
-              <button type="button" onClick={handlePreviousStep}>
-                Atrás
-              </button>
-              <button type="button" onClick={handleNextStep}>
-                Siguiente
-              </button>
-            </div>
-          </>
-        )}
-
-        {step === 5 && (
-          <>
-            <div>
-              <label>Peso (kg):</label>
               <input
-                type="number"
-                name="peso"
-                value={formData.peso}
+                type="text"
+                name="objective"
+                value={formData.objective}
                 onChange={handleChange}
                 required
               />
             </div>
-            <div className="button-container">
-              <button type="button" onClick={handlePreviousStep}>
-                Atrás
-              </button>
-              <button type="button" onClick={handleNextStep}>
-                Siguiente
-              </button>
-            </div>
-          </>
-        )}
-
-        {step === 6 && (
-          <>
             <div>
               <label>Contraseña:</label>
               <input
                 type="password"
-                name="contraseña"
-                value={formData.contraseña}
+                name="password"
+                value={formData.password}
                 onChange={handleChange}
                 required
               />
@@ -236,10 +167,16 @@ function FormularioIA() {
               <button type="button" onClick={handlePreviousStep}>
                 Atrás
               </button>
-              <button type="submit">Enviar</button>
+              <button type="submit">Registrar</button>
             </div>
           </>
         )}
+        <p className="switch-text">
+          ¿Ya tienes cuenta?{" "}
+          <span onClick={onSwitch} className="switch-link">
+            Inicia sesión aquí
+          </span>
+        </p>
       </form>
     </div>
   );

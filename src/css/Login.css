@@ -69,3 +69,9 @@
     font-weight: bold;
   }
   
+  .switch-text{
+    color:#333333;
+  }
+  .switch-text:hover{
+    cursor: pointer;
+  }

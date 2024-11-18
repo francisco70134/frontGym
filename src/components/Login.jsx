@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../css/Login.css"; // Archivo CSS para estilizar el login
+import "../css/Login.css";
 
-function Login({ onLoginSuccess }) {
+function Login({ onSwitch }) {
   const [loginData, setLoginData] = useState({
     name: "",
     password: "",
@@ -21,19 +21,14 @@ function Login({ onLoginSuccess }) {
     const apiUrl = "https://3nbxtlj5-8083.brs.devtunnels.ms/api/auth/login";
 
     try {
-      // Enviando los datos de inicio de sesión con axios
       const response = await axios.post(apiUrl, loginData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
 
-      // Si el inicio de sesión es exitoso
       console.log("Inicio de sesión exitoso:", response.data);
       alert("Inicio de sesión exitoso.");
-
-      // Llama a la función para indicar que el login fue exitoso
-      onLoginSuccess();
     } catch (error) {
       if (error.response) {
         console.error("Error al iniciar sesión:", error.response);
@@ -75,6 +70,12 @@ function Login({ onLoginSuccess }) {
         <div className="button-container">
           <button type="submit">Iniciar Sesión</button>
         </div>
+        <p className="switch-text">
+          ¿No tienes cuenta?{" "}
+          <span onClick={onSwitch} className="switch-link">
+            Regístrate aquí
+          </span>
+        </p>
       </form>
     </div>
   );
