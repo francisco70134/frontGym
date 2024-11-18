@@ -1,19 +1,34 @@
-import React, { useState } from "react";
+// App.jsx
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./routes/ProtectedRoutes";
+
 import Login from "./components/Login";
-import FormularioIA from "./components/FormularioIA";
+import RegisterPage from "./components/FormularioIA";
+import HomePage from "./pages/homePage/HomePage";
 
-function App() {
-  const [isLogin, setIsLogin] = useState(true);
-
+const App = () => {
   return (
-    <div className="App">
-      {isLogin ? (
-        <Login onSwitch={() => setIsLogin(false)} />
-      ) : (
-        <FormularioIA onSwitch={() => setIsLogin(true)} />
-      )}
-    </div>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+           
+                  {/* Esto asegura que se apliquen los estilos base del tema */}
+                  <HomePage />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
-}
+};
 
 export default App;

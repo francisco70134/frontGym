@@ -1,0 +1,187 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* Fondo del dark mode */
+    color: #ffffff; /* Texto claro para el dark mode */
+  }
+  
+  /* Contenedor principal */
+  .home-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 250px;
+    background-color: #1e1e1e; /* Fondo oscuro del sidebar */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5); /* Sombra lateral */
+  }
+  
+  .sidebar h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #90caf9; /* Azul claro para destacar el título */
+  }
+  
+  .sidebar hr {
+    border: none;
+    border-top: 1px solid #424242;
+    margin: 15px 0;
+  }
+  
+  .sidebar p {
+    margin: 5px 0;
+    color: #b0bec5; /* Texto secundario */
+  }
+  
+  .logout-button {
+    background-color: #90caf9; /* Azul claro */
+    color: #121212; /* Texto oscuro */
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .logout-button:hover {
+    background-color: #64b5f6; /* Azul más intenso en hover */
+  }
+  
+  /* Área principal */
+  .main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #121212; /* Fondo oscuro */
+    color: #ffffff; /* Texto claro */
+  }
+  
+  .main-content h1 {
+    font-size: 2.5rem;
+    margin: 0;
+  }
+  
+
+
+  
+/* Contenedor del chat */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #121212;
+    position: relative;
+  }
+  
+  /* Área de mensajes */
+  .chat-messages {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .chat-messages.has-messages {
+    flex-grow: 1;
+    justify-content: flex-start;
+    padding: 10px;
+    margin-bottom: auto;
+  }
+  
+  .chat-message {
+    background-color: #1e1e1e;
+    color: #90caf9;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  /* Entrada de chat centrada inicialmente */
+  .chat-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #1e1e1e;
+    border-top: 1px solid #424242;
+  }
+  
+  .file-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #424242;
+    color: #fff;
+  }
+  
+  .send-button {
+    padding: 10px 20px;
+    background-color: #90caf9;
+    color: #121212;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .send-button:hover {
+    background-color: #64b5f6;
+  }
+  
+  /* Para ajustar mensajes con desplazamiento */
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chat-message.loading-message {
+    color: #007bff;
+    font-style: italic;
+    text-align: center;
+    animation: blink 1s infinite;
+  }
+  
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  
+
+  .chat-message {
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  
+  .chat-message h1, h2, h3 {
+    color: #007BFF;
+  }
+  
+  .chat-message p {
+    margin: 10px 0;
+  }
+  
+  .chat-message ul {
+    padding-left: 20px;
+  }
+  

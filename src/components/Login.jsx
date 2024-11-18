@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import "../css/Login.css";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Login({ onSwitch }) {
+  const { login } = useContext(AuthContext); 
+  const navigate = useNavigate();
+
   const [loginData, setLoginData] = useState({
     name: "",
     password: "",
@@ -15,10 +20,12 @@ function Login({ onSwitch }) {
       [name]: value,
     }));
   };
-
+   const handleGoToRegister = ()=>{
+    navigate("/register"); // Redirigir a la página de registro
+   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const apiUrl = "https://3nbxtlj5-8083.brs.devtunnels.ms/api/auth/login";
+    const apiUrl = `${import.meta.env.VITE_API_URL}auth/login`;
 
     try {
       const response = await axios.post(apiUrl, loginData, {
@@ -26,9 +33,9 @@ function Login({ onSwitch }) {
           "Content-Type": "application/json",
         },
       });
+      login(response.data.token, response.data.user);
+      navigate("/"); // Redirigir a la página principal
 
-      console.log("Inicio de sesión exitoso:", response.data);
-      alert("Inicio de sesión exitoso.");
     } catch (error) {
       if (error.response) {
         console.error("Error al iniciar sesión:", error.response);
@@ -72,7 +79,7 @@ function Login({ onSwitch }) {
         </div>
         <p className="switch-text">
           ¿No tienes cuenta?{" "}
-          <span onClick={onSwitch} className="switch-link">
+          <span onClick={handleGoToRegister} className="switch-link">
             Regístrate aquí
           </span>
         </p>

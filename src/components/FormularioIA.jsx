@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import "../css/FormularioIA.css";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function FormularioIA({ onSwitch }) {
+  const { login } = useContext(AuthContext); 
+  const navigate = useNavigate();
+
   const [step, setStep] = useState(1); // Controla el paso actual del formulario
   const [formData, setFormData] = useState({
     name: "",
@@ -31,7 +36,7 @@ function FormularioIA({ onSwitch }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const apiUrl = "https://3nbxtlj5-8083.brs.devtunnels.ms/api/auth/register";
+    const apiUrl = `${import.meta.env.VITE_API_URL}auth/register`;
 
     try {
       const response = await axios.post(apiUrl, formData, {
@@ -41,7 +46,8 @@ function FormularioIA({ onSwitch }) {
       });
 
       console.log("Registro exitoso:", response.data);
-      alert("Registro exitoso.");
+      login(response.data.token, response.data.user);
+      navigate("/"); 
     } catch (error) {
       if (error.response) {
         console.error("Error al registrar:", error.response);
