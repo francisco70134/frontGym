@@ -5,8 +5,12 @@ import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function FormularioIA({ onSwitch }) {
-  const { login } = useContext(AuthContext); 
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const handleGoToRegister = () => {
+    navigate("/login"); // Redirigir a la página de registro
+  };
 
   const [step, setStep] = useState(1); // Controla el paso actual del formulario
   const [formData, setFormData] = useState({
@@ -47,11 +51,13 @@ function FormularioIA({ onSwitch }) {
 
       console.log("Registro exitoso:", response.data);
       login(response.data.token, response.data.user);
-      navigate("/"); 
+      navigate("/");
     } catch (error) {
       if (error.response) {
         console.error("Error al registrar:", error.response);
-        alert(`Error al registrar: ${error.response.status} - ${error.response.statusText}`);
+        alert(
+          `Error al registrar: ${error.response.status} - ${error.response.statusText}`
+        );
       } else if (error.request) {
         console.error("Error en la solicitud:", error.request);
         alert("Error de red, por favor intente más tarde.");
@@ -179,7 +185,7 @@ function FormularioIA({ onSwitch }) {
         )}
         <p className="switch-text">
           ¿Ya tienes cuenta?{" "}
-          <span onClick={onSwitch} className="switch-link">
+          <span onClick={handleGoToRegister} className="switch-link">
             Inicia sesión aquí
           </span>
         </p>
